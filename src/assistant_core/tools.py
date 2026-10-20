@@ -1,8 +1,5 @@
 import re
-
-
-class InvalidRequest(Exception):
-    pass
+from assistant_core.errors import InvalidRequest
 
 
 def parse_credits(text: str) -> tuple[int, int]:
