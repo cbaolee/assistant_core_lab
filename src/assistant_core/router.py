@@ -1,11 +1,4 @@
-from enum import Enum, auto
-
-
-class Intent(Enum):
-    GREETING = auto()
-    FEE = auto()
-    OFFICE = auto()
-    RULE = auto()
+from assistant_core.models import Intent
 
 GREETINGS = frozenset({"hi", "hello", "hey", "xin chao"})
 
