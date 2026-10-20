@@ -1,8 +1,10 @@
 import pytest
+
 from assistant_core.config import Settings
-from assistant_core.knowledge import OfficeDirectory, Office, Handbook, Rule
+from assistant_core.knowledge import Handbook, Office, OfficeDirectory, Rule
 from assistant_core.responder import StubLLMResponder
 from assistant_core.service import AssistantService
+
 
 @pytest.fixture
 def service():
