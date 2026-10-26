@@ -1,15 +1,25 @@
+from pathlib import Path
+
 import pytest
 
 from assistant_core.config import Settings
-from assistant_core.knowledge import Handbook, Office, OfficeDirectory, Rule
+from assistant_core.knowledge import Handbook, OfficeDirectory
 from assistant_core.responder import StubLLMResponder
 from assistant_core.service import AssistantService
 
+DATA = Path(__file__).resolve().parents[1] / "data"
+
 
 @pytest.fixture
-def service():
-    settings = Settings(llm_api_key="fake")
-    offices = OfficeDirectory({"library": Office("library", "B.201", "Mon-Sat 07:00-20:00")})
-    handbook = Handbook([Rule("H26-5.3", "Thesis", "thesis registration credits")])
-    responder = StubLLMResponder()
-    return AssistantService(settings, offices, handbook, responder)
+def settings():
+    return Settings(data_dir=DATA)
+
+
+@pytest.fixture
+def service(settings):
+    return AssistantService(
+        settings,
+        OfficeDirectory.from_csv(DATA / "offices.csv"),
+        Handbook.from_json(DATA / "handbook.json"),
+        StubLLMResponder(),
+    )

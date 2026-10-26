@@ -61,5 +61,9 @@ class Handbook:
         return cls(rules)
 
     def search(self, query: str) -> Rule | None:
-        t = query.lower()
-        return next((r for r in self._rules if t in r.title.lower() or t in r.text.lower()), None)
+        keywords = query.lower().split()
+        
+        return next(
+            (r for r in self._rules if any(k in r.title.lower() or k in r.text.lower() for k in keywords)), 
+            None
+        )
