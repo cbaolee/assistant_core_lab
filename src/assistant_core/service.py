@@ -66,7 +66,7 @@ class AssistantService:
                 self.settings.retake_multiplier,
                 self.settings.max_credits,
             )
-            return Response(answer=f"Your tuition is {total} VND", intent=Intent.FEE)
+            return Response(answer=f"Your tuition is {total:,} VND", intent=Intent.FEE)
         except InvalidRequest as e:
             return Response(answer=str(e), intent=Intent.FEE)
 
