@@ -90,4 +90,8 @@ def create_app(
         #   "Weather service unavailable") from None
         raise NotImplementedError("T4")
 
+    @app.get("/v1/offices")
+    def list_offices():
+        return [o.__dict__ for o in service.offices.all()]
+
     return app
