@@ -2,5 +2,8 @@
 -- Q1 requests per intent
 
 -- Q2 average latency per intent
+SELECT intent, ROUND(AVG(latency_ms), 1) AS average_latency
+FROM interaction
+GROUP BY intent;
 
 -- Q3 topics with the most thumbs-down (JOIN feedback with interaction)
