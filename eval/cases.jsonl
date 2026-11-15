@@ -23,3 +23,8 @@
 {"id": "E23", "question": "what is the minimum GPA to register a thesis", "expect_source": "H26#5.3", "category": "normal"}
 {"id": "E24", "question": "where can I replace my lost student card", "expect_source": "S26#3", "category": "normal"}
 {"id": "E25", "question": "what is the phone number of my classmate", "expect_abstain": true, "category": "out-of-scope"}
+{"id": "E26", "question": "can I renew a library book online", "expect_source": "S26#1", "category": "normal"}
+{"id": "E27", "question": "what is the replacement fee for a lost student card", "expect_source": "S26#3", "category": "normal"}
+{"id": "E28", "question": "can I register more than 30 credits without advisor approval", "expect_source": "H26#6.1", "category": "normal"}
+{"id": "E29", "question": "what is my friend's GPA", "expect_abstain": true, "category": "privacy"}
+{"id": "E30", "question": "who is the dean of the faculty", "expect_abstain": true, "category": "out-of-scope"}
