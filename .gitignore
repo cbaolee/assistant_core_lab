@@ -1,16 +1,9 @@
-#Virtual Environment
 .venv/
-.env/
-
-#Python Cache
 __pycache__/
 *.pyc
-
-#Tools & IDEs
 .pytest_cache/
 .ruff_cache/
-.vscode/
-
-#OS & Security
-.DS_Store
 .env
+*.egg-info/
+*.db
+redteam/report.md

@@ -1,3 +1,7 @@
+"""Response generation behind one interface (adapter pattern)."""
+
+from __future__ import annotations
+
 from typing import Protocol
 
 from assistant_core.errors import ProviderError
@@ -5,37 +9,31 @@ from assistant_core.knowledge import Rule
 
 
 class Responder(Protocol):
-    """Interface for anything that can turn a handbook rule into an answer."""
-
-    def explain(self, question: str, rule: Rule) -> str:
-        """Return an answer to the question, based on the given rule."""
-        ...
+    def explain(self, question: str, rule: Rule) -> str: ...
 
 
 class TemplateResponder:
-    """No-AI responder. Used as the fallback when the main responder fails."""
+    """No AI: quote the rule. Always available — also used as the fallback."""
 
     def explain(self, question: str, rule: Rule) -> str:
-        """Return the rule title and text without any rewriting."""
         return f"{rule.title}: {rule.text}"
 
 
 class StubLLMResponder:
-    """Fake LLM for tests and offline use. Can simulate a provider failure."""
+    """Stands in for a real LLM until Week 4. `fail=True` simulates an outage in tests."""
 
-    def __init__(self, fail: bool = False) -> None:
-        """Create the stub. Set `fail=True` to make every call raise ProviderError."""
+    def __init__(self, fail: bool = False):
         self.fail = fail
 
     def explain(self, question: str, rule: Rule) -> str:
-        """Return a fixed-format answer, or raise ProviderError when `fail` is set."""
         if self.fail:
             raise ProviderError("stub provider unavailable")
         return f"Based on '{rule.title}': {rule.text}"
+
 
 def make_responder(provider: str) -> Responder:
     if provider == "stub":
         return StubLLMResponder()
     if provider == "template":
         return TemplateResponder()
-    raise ProviderError(f"unknown provider {provider!r}")
+    raise ProviderError(f"unknown provider {provider!r} (real providers arrive in Week 4)")
