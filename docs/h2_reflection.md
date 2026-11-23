@@ -1,0 +1,4 @@
+# H2 Reflection — OWASP LLM01: Prompt Injection
+
+An attack we did not anticipate in our red-team cases is **indirect prompt injection**: instead of typing "ignore previous instructions" in the chat, an attacker hides that instruction inside a document that later gets indexed into our RAG knowledge base, so the malicious text reaches the LLM through retrieval rather than through the user's message, and our regex guard on user input never sees it.
+Our defensive layer that stops it is the combination of deterministic routing and grounded answering: fees, offices and private data are answered by code (the fee calculator, the office table and `is_private_request`) before any LLM call, and the LLM prompt treats retrieved chunks as quoted evidence only, so an injected sentence in a chunk cannot change the assistant's rules, unlock tools or leak secrets, and the worst it can do is produce a wrong-looking citation that the "abstain when not grounded" check refuses.
