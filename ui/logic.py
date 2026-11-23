@@ -1,12 +1,19 @@
 """UI logic without Streamlit, so it can be unit-tested."""
+
 from __future__ import annotations
 
 from ui.api_client import ChatResult
 
-WELCOME = ("Hi! I can answer questions about fees, offices and the student handbook. "
-           "Try: “Can I register my thesis with 118 credits?”")
-EXAMPLES = ["Can I register my thesis with 18 credits?", "Tuition for 18 credits and 2 retake",
-            "Where is the library?", "I lost my student card"]
+WELCOME = (
+    "Hi! I can answer questions about fees, offices and the student handbook. "
+    "Try: “Can I register my thesis with 118 credits?”"
+)
+EXAMPLES = [
+    "Can I register my thesis with 118 credits?",
+    "Tuition for 18 credits and 2 retake",
+    "Where is the library?",
+    "I lost my student card",
+]
 
 
 def validate_input(text: str) -> str | None:
@@ -30,6 +37,6 @@ def status_note(result: ChatResult) -> str | None:
     """A short note shown under the answer, explaining special situations."""
     if result.escalate:
         return "I could not find this in the official documents. A staff member can help: Training Office, room I.101."
-    elif result.degraded:
+    if result.degraded:
         return "Shown directly from the source document (the AI helper was unavailable)."
     return None

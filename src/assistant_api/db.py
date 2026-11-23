@@ -1,6 +1,4 @@
-"""Persistence with SQLModel (SQLAlchemy + Pydantic) — Lab 5 STARTER.
-
-The models and `record_interaction` are given as worked examples. Complete TODO R1 and R2.
+"""Persistence with SQLModel (SQLAlchemy + Pydantic) — Lab 5.
 
 Privacy by design: we store *metadata* about interactions (intent, latency, topic, outcome),
 a salted hash of the session id, and feedback. We do NOT store the raw user message.
@@ -102,13 +100,12 @@ class Repository:
         with Session(self.engine) as db:
             exists = db.exec(select(Interaction).where(Interaction.request_id == request_id)).first()
             if exists is None:
-                return None          # the API turns this into 404
+                return None
             fb = Feedback(request_id=request_id, rating=rating, comment=comment)
             db.add(fb)
             db.commit()
-            db.refresh(fb) # load the id the database just gave it
+            db.refresh(fb)
             return fb
-
 
     def list_feedback(self, limit: int = 100) -> list[Feedback]:
         with Session(self.engine) as db:

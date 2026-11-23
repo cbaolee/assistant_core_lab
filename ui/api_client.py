@@ -1,4 +1,5 @@
 """A tiny client for the assistant API. The UI talks to the backend ONLY through this class."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -55,10 +56,7 @@ class AssistantClient:
 
     def send_feedback(self, request_id: str, rating: int, comment: str | None = None) -> bool:
         try:
-            r = self._http.post(
-                "/v1/feedback",
-                json={"request_id": request_id, "rating": rating, "comment": comment},
-            )
+            r = self._http.post("/v1/feedback", json={"request_id": request_id, "rating": rating, "comment": comment})
         except httpx.HTTPError:
             return False
         return r.status_code == 201
